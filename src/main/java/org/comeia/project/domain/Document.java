@@ -28,7 +28,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper=false)
-public @Data class Document extends AbstractAuditingEntity implements Serializable {
+public @Data class Document extends AbstractAuditingEntity
+implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
