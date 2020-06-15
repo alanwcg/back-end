@@ -49,17 +49,17 @@ public class ServerConverter implements Converter<Server, ServerDTO> {
 			entity = new Server();
 		}
 		
-		ofNullable(entity.getId())
-		.ifPresent(dto::setId);
+		ofNullable(dto.getId())
+		.ifPresent(entity::setId);
 	
-		ofNullable(entity.getLogin())
-		.ifPresent(dto::setLogin);
+		ofNullable(dto.getLogin())
+		.ifPresent(entity::setLogin);
 	
-		ofNullable(entity.getPassword())
-		.ifPresent(dto::setPassword);
+		ofNullable(dto.getPassword())
+		.ifPresent(entity::setPassword);
 	
-		ofNullable(entity.getUrl())
-		.ifPresent(dto::setUrl);
+		ofNullable(dto.getUrl())
+		.ifPresent(entity::setUrl);
 		
 		return entity;
 	}

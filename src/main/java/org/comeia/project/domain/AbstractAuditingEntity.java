@@ -40,4 +40,5 @@ public @Data class AbstractAuditingEntity {
 	
 	@Column(nullable = false)
 	private boolean deleted = false;
+	
 }

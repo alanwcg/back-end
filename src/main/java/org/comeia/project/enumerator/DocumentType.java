@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum DocumentType {
 
 	txt(".txt"),
-	html(".html"),
-	css(".css"),
-	js(".js"),
-	java(".java");
+	pdf(".pdf"),
+	docx(".docx"),
+	png(".png"),
+	jpeg(".jpeg");
 	
 	public final String displayType;
 	

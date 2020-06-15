@@ -32,10 +32,10 @@ implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "login", length = 20, nullable = false)
+	@Column(name = "login", length = 60, nullable = false)
 	private String login;
 	
-	@Column(name = "password", length = 20, nullable = false)
+	@Column(name = "password", length = 60, nullable = false)
 	private String password;
 	
 	@Column(name = "url", length = 60, nullable = false)

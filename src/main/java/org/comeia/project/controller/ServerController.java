@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.comeia.project.converter.ServerConverter;
+import org.comeia.project.domain.Server;
 import org.comeia.project.dto.ServerDTO;
 import org.comeia.project.dto.ServerFilterDTO;
 import org.comeia.project.locale.ErrorMessageKeys;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,13 +69,13 @@ public class ServerController extends ResourceController {
 			throw new HttpMessageNotReadableException("Required request body is missing");
 		}
 		
-		ServerDTO docDTO = Optional.of(dto)
+		ServerDTO serverDTO = Optional.of(dto)
 				.map(this.converter::to)
 				.map(this.repository::save)
 				.map(this.converter::from)
 				.orElseThrow(() -> throwsException("Error"));
 		
-		return buildResponse(docDTO, attributes);
+		return buildResponse(serverDTO, attributes);
 	}
 	
 	@PutMapping(path = "{id}")
@@ -85,13 +87,27 @@ public class ServerController extends ResourceController {
 			throw new HttpMessageNotReadableException("Required request body is missing");
 		}
 		
-		ServerDTO docDTO = this.repository.findByIdAndDeletedIsFalse(id)
+		ServerDTO serverDTO = this.repository.findByIdAndDeletedIsFalse(id)
 				.map(server -> this.converter.to(dto, server))
 				.map(this.repository::save)
 				.map(this.converter::from)
 				.orElseThrow(() -> throwsException(String.valueOf(id)));
 		
-		return buildResponse(docDTO, attributes);
+		return buildResponse(serverDTO, attributes);
+	}
+	
+	@DeleteMapping(path = "{id}")
+	public void delete(@PathVariable long id) {
+		
+		ServerDTO dto = this.repository.findByIdAndDeletedIsFalse(id)
+				.map(this.converter::from)
+				.orElseThrow(() -> throwsException(ErrorMessageKeys.ERROR_SERVER_NOT_FOUND_BY_ID, String.valueOf(id)));
+		
+		Server server = this.converter.to(dto);
+		server.setDeleted(true);
+		server.setId(dto.getId());
+		this.repository.save(server);
+		
 	}
 
 }

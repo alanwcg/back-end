@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.comeia.project.converter.PersonConverter;
+import org.comeia.project.domain.Person;
 import org.comeia.project.dto.PersonDTO;
 import org.comeia.project.dto.PersonFilterDTO;
 import org.comeia.project.enumerator.PersonType;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -99,5 +101,19 @@ public class PersonController extends ResourceController {
 				.orElseThrow(() -> throwsException(String.valueOf(id)));
 		
 		return buildResponse(personDTO, attributes);
+	}
+	
+	@DeleteMapping(path = "{id}")
+	public void delete(@PathVariable long id) {
+		
+		PersonDTO dto = this.repository.findByIdAndDeletedIsFalse(id)
+				.map(this.converter::from)
+				.orElseThrow(() -> throwsException(ErrorMessageKeys.ERROR_PERSON_NOT_FOUND_BY_ID, String.valueOf(id)));
+		
+		Person person = this.converter.to(dto);
+		person.setDeleted(true);
+		person.setId(dto.getId());
+		this.repository.save(person);
+		
 	}
 }

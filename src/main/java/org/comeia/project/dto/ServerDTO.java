@@ -26,11 +26,11 @@ public @Data class ServerDTO implements Serializable {
 	private Long id;
 	
 	@NotNull(message = MessagesMessageKeys.VALIDATE_SERVER_LOGIN_NOT_VALID)
-	@Size(message = MessagesMessageKeys.VALIDATE_SERVER_LOGIN_NOT_LENGTH, min = 5, max = 20)
+	@Size(message = MessagesMessageKeys.VALIDATE_SERVER_LOGIN_NOT_LENGTH, min = 5, max = 60)
 	private String login;
 	
 	@NotNull(message = MessagesMessageKeys.VALIDATE_SERVER_PASSWORD_NOT_VALID)
-	@Size(message = MessagesMessageKeys.VALIDATE_SERVER_PASSWORD_NOT_LENGTH, min = 5, max = 20)
+	@Size(message = MessagesMessageKeys.VALIDATE_SERVER_PASSWORD_NOT_LENGTH, min = 5, max = 60)
 	private String password;
 	
 	@NotNull(message = MessagesMessageKeys.VALIDATE_SERVER_URL_NOT_VALID)

@@ -41,4 +41,7 @@ implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "document_type", length = 10, nullable = false)
 	private DocumentType documentType;
+	
+	@Column(name = "directory", nullable = false)
+	private String directory;
 }

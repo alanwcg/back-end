@@ -32,4 +32,7 @@ public @Data class DocumentDTO implements Serializable {
 	
 	@NotNull(message = MessagesMessageKeys.VALIDATE_DOCUMENT_TYPE_NOT_VALID)
 	private DocumentType documentType;
+	
+	@NotNull(message = MessagesMessageKeys.VALIDATE_DOCUMENT_DIRECTORY_NOT_VALID)
+	private String directory;
 }

@@ -50,5 +50,12 @@ public class DocumentSpecification {
 					PersonType.valueOf(criteria.getValue().toString())));
 			return;
 		}
+		
+		if( criteria.getKey().equalsIgnoreCase("directory") ) {
+			predicates.add(builder.like(
+					builder.lower(root.<String> get( criteria.getKey())),
+					criteria.getValue().toString().toLowerCase()));
+			return;
+		}
 	}
 }

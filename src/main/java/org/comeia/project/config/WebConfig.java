@@ -3,6 +3,7 @@ package org.comeia.project.config;
 import java.util.List;
 
 import org.comeia.project.locale.WebCookieLocaleResolver;
+import org.comeia.project.storage.StorageProperties;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,11 @@ public class WebConfig implements WebMvcConfigurer {
 		resolver.setOneIndexedParameters(true);
 		resolver.setFallbackPageable(PageRequest.of(0, 20));
 		argumentResolvers.add(resolver);
+	}
+	
+	@Bean
+	public StorageProperties storageProperties() {
+		return new StorageProperties();
 	}
 
 	@Bean(name = "localeResolver")

@@ -19,6 +19,7 @@ public @Data class DocumentFilterDTO implements Serializable {
 
 	private String fullName;
 	private String type;
+	private String directory;
 	
 	public static List<SearchCriteria> buildCriteria(DocumentFilterDTO filter) {
 		List<SearchCriteria> criterias = new ArrayList<>();
@@ -29,6 +30,10 @@ public @Data class DocumentFilterDTO implements Serializable {
 		
 		if(filter.getType() != null && !filter.getType().isEmpty()) { 
 			criterias.add(new SearchCriteria("type", filter.getType()));
+		}
+		
+		if(filter.getDirectory() != null && !filter.getDirectory().isEmpty()) {
+			criterias.add(new SearchCriteria("directory", "%".concat(filter.getDirectory()).concat("%")));
 		}
 		
 		return criterias;

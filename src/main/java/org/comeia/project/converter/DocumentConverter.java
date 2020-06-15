@@ -32,6 +32,9 @@ public class DocumentConverter implements Converter<Document, DocumentDTO> {
 		ofNullable(entity.getDocumentType())
 			.ifPresent(dto::setDocumentType);
 		
+		ofNullable(entity.getDirectory())
+			.ifPresent(dto::setDirectory);
+		
 		return dto;
 	}
 	
@@ -51,6 +54,9 @@ public class DocumentConverter implements Converter<Document, DocumentDTO> {
 		
 		ofNullable(dto.getDocumentType())
 			.ifPresent(entity::setDocumentType);
+		
+		ofNullable(dto.getDirectory())
+			.ifPresent(entity::setDirectory);
 		
 		return entity;
 	}
